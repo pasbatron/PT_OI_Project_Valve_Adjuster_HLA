@@ -1,6 +1,0 @@
-train : D:\on\Project_PT_Otics_Image_Processing_HLA\Version 1.1\train
-val : D:\on\Project_PT_Otics_Image_Processing_HLA\Version 1.1\val
-
-nc : 1
-
-names : ["unit_HLA"] 
