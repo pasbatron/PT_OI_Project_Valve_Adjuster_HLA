@@ -1,0 +1,17 @@
+train: D:\on\Project_PT_Otics_Image_Processing_HLA\train
+val: D:\on\Project_PT_Otics_Image_Processing_HLA\val
+
+nc: 8
+names:
+  [
+    "hla",
+    "hla_terlentang",
+    "hla_terbalik",
+    "kosong",
+    "p_tray_ng",
+    "p_tray_oke",
+    "baud_hj",
+    "tutup_puplen",
+  ]
+# train : /content/drive/MyDrive/Project_ML_HLA/train
+# val : /content/drive/MyDrive/Project_ML_HLA/val

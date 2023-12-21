@@ -1,0 +1,8 @@
+hla
+hla_terlentang
+hla_terbalik
+kosong
+p_tray_ng
+p_tray_oke
+baud_hj
+tutup_pulpen
