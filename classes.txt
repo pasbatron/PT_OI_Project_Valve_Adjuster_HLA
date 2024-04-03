@@ -5,4 +5,9 @@ kosong
 p_tray_ng
 p_tray_oke
 baud_hj
-tutup_pulpen
+box_hla
+tutup_spidol
+tutup_pulpen_1
+tutup_pulpen_2
+kanban
+indikator_off
