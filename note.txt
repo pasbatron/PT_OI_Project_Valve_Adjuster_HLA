@@ -42,3 +42,69 @@ tar -xf Python-3.8.12.tar.xz
 cd Python-3.8.12
 
 
+
+
+
+
+
+
+
+
+sudo apt install python3-pip
+pip3 install -U python-dateutil
+pip3 install ultralytics
+
+pip3 uninstall torch
+pip3 uninstall torchvision
+
+sudo apt-get -y update;
+sudo apt-get -y python3-pip libopenblas-dev; 
+
+export TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v60dp/pytorch/torch-2.2.0a0+6a974be.nv23.11-cp310-cp310-linux_aarch64.whl
+
+
+python3 -m pip install --upgrade pip; python3 -m pip install aiohttp 
+export "LD_LIBRARY_PATH=/usr/lib/llvm-8/lib:$LD_LIBRARY_PATH"
+python3 -m pip install --upgrade protobuf
+python3 -m pip install --no-cache $TORCH_INSTALL
+
+
+sudo apt-get install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
+
+git clone --branch v0.16.0 https://github.com/pytorch/vision torchvision
+cd torchvision
+export BUILD_VERSION=0.16.0
+python3 setup.py install --user
+cd ../
+
+
+
+git clone https://github.com/JetsonHacksNano/installLibrealsense.git
+cd installLibrealsense
+
+setting --> buildLibrealsense.sh
+baris 135 - {-DPYTHON_EXECUTABLE=$(which python3)
+
+./buildLibrealsense.sh -j 2
+
+
+setting --> home, show hide file
+open file .bashrc
+
+baris 110 - {export PYTHONPATH=$PYTHONPATH:/usr/local/OFF
+
+source ~/.bashrc
+python3
+
+import pyrealsense2 as rs
+
+
+https://docs.nvidia.com/deeplearning/frameworks/install-pytorch-jetson-platform/index.html
+https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048
+https://github.com/IntelRealSense/librealsense/issues/11931
+
+
+
+
+
+
