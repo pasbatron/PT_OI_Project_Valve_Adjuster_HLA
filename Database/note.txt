@@ -1,0 +1,9 @@
+CREATE TABLE table_data (
+    id INTEGER PRIMARY KEY,
+    data1 TEXT,
+    data2 TEXT,
+    data3 TEXT,
+    data4 TEXT,
+    data5 TEXT,
+    data6 TEXT
+);
