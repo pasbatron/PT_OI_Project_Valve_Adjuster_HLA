@@ -4,6 +4,12 @@ import time
 from ultralytics import YOLO
 import os
 from datetime import datetime
+import serial  # Import pyserial
+
+# Initialize serial communication
+serial_port = '/dev/ttyUSB0'  # Change this to your serial port
+baud_rate = 9600
+ser = serial.Serial(serial_port, baud_rate)
 
 model = YOLO("best.pt")
 rtsp_base_url = "rtsp://admin:pt_otics1*@192.168.1.108:554/cam/realmonitor?channel=1&subtype=0"
@@ -41,6 +47,7 @@ def capture_image(frame):
     print(f"[INFO] Capturing image: {image_save_path}")
     cv2.imwrite(image_save_path, frame)
     print(f"[INFO] Image saved to {image_save_path}")
+
 capture_history = []
 last_capture_time = 0
 capture_cooldown = 10
@@ -69,6 +76,23 @@ while True:
                 print(f"[WARNING] Detected class_id {class_id} out of bounds for class_names")
 
         print(f"Number of 'hla' objects detected: {hla_count}")
+        
+        # Check for serial input
+        if ser.in_waiting > 0:
+            command = ser.readline().decode('utf-8').strip()
+            if command == "ON":
+                print("[INFO] Judgment triggered.")
+                # Check HLA count and send appropriate value via serial
+                if hla_count == 88:
+                    ser.write(b'8')  # Send string "8"
+                    capture_image(frame)  # Optionally capture image
+                    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    capture_history.append((timestamp, hla_count))
+                    if len(capture_history) > 30:
+                        capture_history.pop(0)
+                else:
+                    ser.write(b'1')  # Send string "1"
+        
         current_time = time.time()
         if (current_time - last_capture_time) >= capture_cooldown:
             if hla_count == 88:
@@ -78,8 +102,6 @@ while True:
                 if len(capture_history) > 30:
                     capture_history.pop(0)
             last_capture_time = current_time
-            
-            
             
         annotated_frame = results[0].plot(line_width=1, labels=True, conf=True)
         sidebar_width = 500
@@ -103,8 +125,6 @@ while True:
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
 
-
-
-
 camera_stream.stop()
 cv2.destroyAllWindows()
+ser.close()  # Close the serial port when done
